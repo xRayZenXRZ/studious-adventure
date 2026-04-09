@@ -13,9 +13,6 @@ Why the project is useful ?
 How users can get started with the project ?
 > Une documentation en PDF sera fourni : <sub> Join here link to documentation (pdf) </sub>
 
-Where user can get help with your project ?
-> Vous pouvez me contacter sur Github directement.
-
 Who maintains and contributes to the project ?
 > Une fois le project complete celle-ci ne serais plus maintenu. Les contributeurs à ce project son : <sub> Join names of all contributers </sub>
 
