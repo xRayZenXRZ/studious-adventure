@@ -7,13 +7,6 @@ import { NotFoundError } from "@domain/errors/NotFoundError";
 import { ConflictError } from "@domain/errors/ConflictError";
 import { ValidationError } from "@domain/errors/ValidationError";
 
-type TicketFilters = {
-    match?: string;
-    seat?: string;
-    firstname?: string;
-    lastname?: string;
-    email?: string;
-}
 
 const matchService = new MatchService(AppDataSource.getRepository(Match));
 
@@ -30,14 +23,18 @@ export class TicketService {
     async order(matchId: number, seat: string, customer: { firstname: string, lastname: string, email: string }): Promise<Ticket> {
 
         const match = await this.matchRepository.findOne({
-            where: { id: matchId }
+            where: {
+                id: matchId
+            }
         });
 
         if (!match) throw new NotFoundError(`Match ${matchId} does not exist`);
 
         const existing = await this.ticketRepository.findOne({
             where: {
-                match: { id: matchId },
+                match: {
+                    id: matchId
+                },
                 seat
             }
         });
@@ -54,12 +51,12 @@ export class TicketService {
 
         return this.ticketRepository.save(ticket);
     }
-    /*
+
     async getSoldSeatsByMatch(matchId: number): Promise<string[]> {
 
-        let sold: string[] = [];
+        let soldSeats: string[] = [];
 
-        const soldSeats = await this.ticketRepository.find({
+        const seats = await this.ticketRepository.find({
             where: {
                 match: {
                     id: ILike(matchId)
@@ -71,9 +68,11 @@ export class TicketService {
             }
         })
 
-        return something
+        seats.forEach(ticket => soldSeats.push(`Match Id : ${ticket.id} , Solded Seat : ${ticket.seat}`));
+
+        return soldSeats;
     }
-    */
+
     async findByEmail(email: string): Promise<Ticket[]> {
 
         if (!(email.includes("@"))) throw new ValidationError(`Invalide email ${email} `);
