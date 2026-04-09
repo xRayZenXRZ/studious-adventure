@@ -1,6 +1,6 @@
 import { MatchStage } from "@domain/entities/enums/MatchStage";
 import { MatchStatus } from "@domain/entities/enums/MatchStatus";
-import { FifaCode } from "@domain/entities/value-objects/FifaCode";
+import { FifaCode } from "@domain/value-objects/FifaCode";
 import { Match } from "@domain/entities/Match";
 import { NotFoundError } from "@domain/errors/NotFoundError";
 import { ValidationError } from "@domain/errors/ValidationError";

@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-import { FifaCode, FifaCodeTransformer } from "./value-objects/FifaCode";
+import { FifaCode, FifaCodeTransformer } from "@domain/value-objects/FifaCode";
 
 @Entity()
 export class Team {

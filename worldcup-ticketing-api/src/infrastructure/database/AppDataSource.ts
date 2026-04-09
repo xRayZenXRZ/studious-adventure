@@ -1,6 +1,6 @@
 import { City } from "@domain/entities/City";
 import { Country } from "@domain/entities/Country";
-import { FifaCode } from "@domain/entities/value-objects/FifaCode";
+import { FifaCode } from "@domain/value-objects/FifaCode";
 import { Match } from "@domain/entities/Match";
 import { Stadium } from "@domain/entities/Stadium";
 import { Team } from "@domain/entities/Team";

@@ -1,6 +1,6 @@
 import { MatchService } from "@application/services/MatchService";
 import { TeamService } from "@application/services/TeamService";
-import { FifaCode } from "@domain/entities/value-objects/FifaCode";
+import { FifaCode } from "@domain/value-objects/FifaCode";
 import { Match } from "@domain/entities/Match";
 import { Team } from "@domain/entities/Team";
 import { NotFoundError } from "@domain/errors/NotFoundError";
