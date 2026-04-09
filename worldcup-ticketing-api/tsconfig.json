@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "types": [
+      "bun",
+      "node"
+    ],
+    "paths": {
+      "@domain/*": [
+        "./src/domain/*"
+      ],
+      "@infrastructure/*": [
+        "./src/infrastructure/*"
+      ],
+      "@application/*": [
+        "./src/application/*"
+      ],
+    },
+    "strict": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx",
+    "experimentalDecorators": true, //typeorm
+    "emitDecoratorMetadata": true //typeorm
+  }
+}

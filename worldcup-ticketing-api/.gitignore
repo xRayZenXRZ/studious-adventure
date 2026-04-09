@@ -1,0 +1,12 @@
+# Dependency directories
+node_modules/
+
+# Database data
+mariadb/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env

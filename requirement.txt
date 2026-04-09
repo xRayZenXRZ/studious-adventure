@@ -1,0 +1,10 @@
+- Langage de programmation : TypeScript,
+- Framework : Hono,
+- Environnement d'exécution : Bun (ou Node.js),
+- Base de données locale : PostgreSQL avec Docker,
+- Architecture applicative : MVC,
+- Style d'architecture d'API : REST.
+- Mode d'authentification : Token JWT ou token opaque (Header HTTP Authorization
+Bearer).
+- L'API REST sera testée à l'aide du logiciel desktop Bruno (https://www.usebruno.com/).
+Le développement d'une application front end pour tester l'API n'est pas nécessaire.
