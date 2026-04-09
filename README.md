@@ -65,7 +65,3 @@ nécessaires).
 ## Specification Techniques
 
 Voir fichier Text `requirement.txt`
-# studious-adventure
-# studious-adventure
-# studious-adventure
-# studious-adventure
