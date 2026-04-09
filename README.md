@@ -1,4 +1,4 @@
-# glowing-computing-machine
+# studious-adventure
 
 Projet de Technologie Web Avancée 2025-2026.
 
@@ -21,7 +21,6 @@ Who maintains and contributes to the project ?
 
 Remarque :
 
-- Projet universitaire, ainsi tous les droits sont réservé à l'université de lorraine ainsi que l'IDMC.
 - Structure Github inspirée de la [documentation github](https://github.com/skills/introduction-to-repository-management)
 
 ## Spécification fonctionnelles
@@ -48,7 +47,7 @@ Remarque :
 - City
 - Stadium
 - Reservation
-- Auth
+- Auth (Fonctionnalité non à faire)
 
 ## Securisation des endspoints
 
@@ -58,9 +57,7 @@ L'authentification et l'obtention du jeton s'effectueront via le service Auth.
 
 ## Base de données
 
-Dans le cadre du cours de Bases de données enseigné par M. Gilles Halin au semestre 3, vous avez modélisé une base de données relationnelles et intégré des données de test en
-lien avec le sujet. Ce travail servira de base pour ce projet (des adaptations seront
-nécessaires).
+Dans le cadre du cours de Bases de données enseigné par M. Gilles Halin au semestre 3, nous avez modélisé une base de données relationnelles et intégré des données de test en lien avec le sujet. Ce travail servira de base pour ce projet (des adaptations seront faites).
 
 ## Specification Techniques
 
