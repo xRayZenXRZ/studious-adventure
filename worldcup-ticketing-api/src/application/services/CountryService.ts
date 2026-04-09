@@ -12,14 +12,17 @@ export class CountryService {
     private readonly countryRepository: Repository<Country>;
 
     constructor(countryRepository: Repository<Country>) {
+
         this.countryRepository = countryRepository;
     }
 
 
     async findAll({ name, code }: CountryFilters = {}): Promise<Country[]> {
+
+        // Countries Filtered By Name
         if (name) {
 
-            const countryFilteredByName = await this.countryRepository.find({
+            const countries = await this.countryRepository.find({
 
                 where: {
                     name: ILike(name as Country["name"])
@@ -27,12 +30,14 @@ export class CountryService {
 
             });
 
-            return countryFilteredByName;
+            return countries;
         }
+
+        //Countries Filtered By Country Code
 
         if (code) {
 
-            const countryFilteredByCode = await this.countryRepository.find({
+            const countries = await this.countryRepository.find({
 
                 where: {
 
@@ -42,12 +47,14 @@ export class CountryService {
 
             });
 
-            return countryFilteredByCode;
+            return countries;
         }
 
         return this.countryRepository.find({
 
-            order: { name: "ASC" }
+            order: {
+                name: "ASC"
+            }
 
         });
     }

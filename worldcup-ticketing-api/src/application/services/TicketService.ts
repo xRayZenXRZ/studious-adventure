@@ -16,12 +16,15 @@ export class TicketService {
     private readonly matchRepository: Repository<Match>;
 
     constructor(ticketRepository: Repository<Ticket>, matchRepository: Repository<Match>) {
+
         this.ticketRepository = ticketRepository;
+
         this.matchRepository = matchRepository;
     }
 
     async order(matchId: number, seat: string, customer: { firstname: string, lastname: string, email: string }): Promise<Ticket> {
 
+        // à revoir 
         const match = await this.matchRepository.findOne({
             where: {
                 id: matchId

@@ -12,7 +12,7 @@ export default class GetMatchsByStatusHandler {
     async handle(c: Context<{}, "/:status">) {
         const { status } = c.req.param();
         try {
-            const data = await matchService.findByStatus(status.toLowerCase());
+            const data = await matchService.findByStatus(status.toUpperCase());
 
             return c.json({ "success": true, "message": `Matchs with status ${status}`, data });
         } catch (e) {

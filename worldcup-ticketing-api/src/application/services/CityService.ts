@@ -15,13 +15,17 @@ export class CityService {
     private readonly cityRepository: Repository<City>;
 
     constructor(cityRepository: Repository<City>) {
+
         this.cityRepository = cityRepository;
+
     }
 
     async findAll({ name, country }: CityFilters = {}): Promise<City[]> {
 
+        // Cities Filtered By Name
         if (name) {
-            const cityFilterdByName = await this.cityRepository.find({
+
+            const cities = await this.cityRepository.find({
 
                 select: {
                     name: true,
@@ -38,14 +42,15 @@ export class CityService {
 
             })
 
-            return cityFilterdByName;
+            return cities;
         }
 
+        // Cities Filtered By Country Code
         if (country) {
             return this.findByCountryCode(country)
         }
 
-        const city = await this.cityRepository.find({
+        const cities = await this.cityRepository.find({
 
             select: {
                 name: true,
@@ -62,7 +67,7 @@ export class CityService {
 
         })
 
-        return city;
+        return cities;
     }
 
     async findByName(name: string): Promise<City> {
@@ -80,7 +85,7 @@ export class CityService {
 
     async findByCountryCode(countryCode: string): Promise<City[]> {
 
-        const city = await this.cityRepository.find({
+        const cities = await this.cityRepository.find({
 
             where: {
                 country: {
@@ -94,9 +99,9 @@ export class CityService {
 
         });
 
-        if (city.length === 0) throw new NotFoundError(`Country "${countryCode}" does not exist`);
+        if (cities.length === 0) throw new NotFoundError(`Country "${countryCode}" does not exist`);
 
-        return city;
+        return cities;
     }
 
 }

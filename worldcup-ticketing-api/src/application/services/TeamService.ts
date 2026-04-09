@@ -13,11 +13,14 @@ export class TeamService {
     private readonly teamRepository: Repository<Team>;
 
     constructor(teamRepository: Repository<Team>) {
+
         this.teamRepository = teamRepository;
+
     }
 
     async findAll({ name, code }: TeamFilters = {}): Promise<Team[]> {
 
+        //Teams Filtered By Name
         if (name) {
             const teams = await this.teamRepository.find({
 
@@ -30,6 +33,7 @@ export class TeamService {
             return teams;
         }
 
+        //Teams Filtered by Code
         if (code) {
 
             if (!(/^[A-Z]{3}$/).test(code)) throw new ValidationError(`Invalid FIFA code: "${code}"`);
@@ -57,8 +61,6 @@ export class TeamService {
     }
 
     async findByFifaCode(code: string): Promise<Team> {
-
-        console.log(code)
 
         if (!(/^[A-Z]{3}$/).test(code)) throw new ValidationError(`Invalid FIFA code: "${code}"`);
 

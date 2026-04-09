@@ -21,8 +21,9 @@ export class StadiumService {
 
     async findAll({ name, capacity, city }: StadiumFilters = {}): Promise<Stadium[]> {
 
+        //Stadium Filtered By Name
         if (name) {
-            const stadiumFilteredByCityName = await this.stadiumRepository.find({
+            const stadiums = await this.stadiumRepository.find({
                 select: {
                     name: true,
                     city: true,
@@ -44,11 +45,12 @@ export class StadiumService {
                 }
             })
 
-            return stadiumFilteredByCityName;
+            return stadiums;
         }
 
+        //Stadiums Filtered By City
         if (city) {
-            const stadiumFilteredByCity = await this.stadiumRepository.find({
+            const stadiums = await this.stadiumRepository.find({
                 select: {
                     name: true,
                     city: true,
@@ -68,10 +70,12 @@ export class StadiumService {
                     name: "ASC"
                 }
             })
-            return stadiumFilteredByCity;
+            return stadiums;
         }
+
+        //Stadiums Filtered By Capacity
         if (capacity) {
-            const stadiumFilteredByCapacity = await this.stadiumRepository.find({
+            const stadiums = await this.stadiumRepository.find({
                 select: {
                     name: true,
                     city: true,
@@ -91,10 +95,10 @@ export class StadiumService {
                 }
             })
 
-            return stadiumFilteredByCapacity
+            return stadiums
         }
 
-        const stadium = await this.stadiumRepository.find({
+        const stadiums = await this.stadiumRepository.find({
 
             relations: {
                 city: true
@@ -106,7 +110,7 @@ export class StadiumService {
 
         })
 
-        return stadium;
+        return stadiums;
     }
 
     async findByName(name: string): Promise<Stadium> {

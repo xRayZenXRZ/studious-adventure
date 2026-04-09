@@ -13,7 +13,7 @@ export default class GetMatchsByStageHandler {
     async handle(c: Context<{}, "/:stage">) {
         const { stage } = c.req.param();
         try {
-            const data = await matchService.findByStage(stage.toLowerCase());
+            const data = await matchService.findByStage(stage.toUpperCase());
 
             return c.json({ "success": true, "message": `Matchs at stage ${stage}`, data });
         } catch (e) {

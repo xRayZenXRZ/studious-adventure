@@ -26,14 +26,17 @@ export class MatchService {
     private readonly matchRepository: Repository<Match>;
 
     constructor(matchRepository: Repository<Match>) {
+
         this.matchRepository = matchRepository;
+
     }
 
     async findAll({ homeTeam, awayTeam, stage, date }: MatchFilters = {}): Promise<Match[]> {
 
+        //Match Filtered By Stage
         if (stage) {
 
-            if (!(stage.toUpperCase() in MatchStage)) throw new ValidationError(`Invalid stage: "${stage}"`)
+            if (!(stage in MatchStage)) throw new ValidationError(`Invalid stage: "${stage}"`)
 
             const matches = await this.matchRepository.find({
                 where: {
@@ -43,6 +46,7 @@ export class MatchService {
 
             return matches;
         }
+
         //verifier si hometTeam ≠ awaTeam pour ajouter une condition
 
         if (homeTeam) {
@@ -57,6 +61,7 @@ export class MatchService {
             return this.findByTeamCode(TeamCode);
         }
 
+        //Match Filtered By Date
         if (date) {
 
             if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new ValidationError(`Invalid date format`)
@@ -97,7 +102,7 @@ export class MatchService {
 
     async findByStage(stage: string): Promise<Match[]> {
 
-        if (!(stage.toUpperCase() in MatchStage)) throw new ValidationError(`Invalid stage: "${stage}"`)
+        if (!(stage in MatchStage)) throw new ValidationError(`Invalid stage: "${stage}"`)
 
         const Matches = await this.matchRepository.find({
             where: {
@@ -110,7 +115,7 @@ export class MatchService {
 
     async findByStatus(status: string): Promise<Match[]> {
 
-        if (!(status.toUpperCase() in MatchStatus)) throw new ValidationError(`Invalid status: "${status}"`)
+        if (!(status in MatchStatus)) throw new ValidationError(`Invalid status: "${status}"`)
 
         const Matches = await this.matchRepository.find({
             where: {
@@ -180,7 +185,7 @@ export class MatchService {
 
     async findByTeamCodeAndStage(teamCode: FifaCode, stage: string): Promise<Match[]> {
 
-        if (!(stage.toUpperCase() in MatchStage)) throw new ValidationError(`Invalid stage: "${stage}"`)
+        if (!(stage in MatchStage)) throw new ValidationError(`Invalid stage: "${stage}"`)
 
         const Matches = await this.matchRepository.find({
 

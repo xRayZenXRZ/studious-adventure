@@ -18,7 +18,7 @@ export default class GetMatchHandler {
         const dateQuery = c.req.query("date");
         try {
 
-            const data = await matchService.findAll({ homeTeam: teamCode, awayTeam: teamCode, stage: stage, date: dateQuery });
+            const data = await matchService.findAll({ homeTeam: teamCode, awayTeam: teamCode, stage: stage.toUpperCase(), date: dateQuery });
 
             const message = teamCode ? `Matchs filtered by team[code]: ${teamCode}` : stage ? `Matchs filtered by stage: ${stage.toUpperCase()}` : dateQuery ? `Matchs filtered by date: ${dateQuery}` : "All matchs";
 
