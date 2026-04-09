@@ -33,6 +33,12 @@ export class Ticket {
             this.email = email;
         }
     }
+
+    public toString(): string {
+        return `Match ID : ${this.match.id} , Seat : ${this.seat} , customer : ${this.lastname} ${this.firstname} , email : ${this.email}`;
+    }
+
+
 }
 
 
