@@ -1,5 +1,5 @@
 import { Team } from "@domain/entities/Team";
-import { FifaCode } from "@domain/entities/value-objects/FifaCode";
+import { FifaCode } from "@domain/value-objects/FifaCode";
 
 export const Teams: Team[] = [
     // CONCACAF - Hosts
