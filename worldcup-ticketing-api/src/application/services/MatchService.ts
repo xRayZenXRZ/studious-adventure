@@ -176,7 +176,7 @@ export class MatchService {
 
     async findByTeamCodeAndStage(teamCode: FifaCode, stage: string): Promise<Match[]> {
 
-        if (!(stage in MatchStage)) throw new ValidationError(`Invalid stage: "${stage}"`)
+        if (!(stage in MatchStage)) throw new ValidationError(`Invalid stage: "${stage.toLowerCase()}"`)
 
         const Matches = await this.matchRepository.find({
 
