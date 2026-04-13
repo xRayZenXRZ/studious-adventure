@@ -42,7 +42,7 @@ export class TicketService {
             }
         });
 
-        if (existing) throw new ConflictError(`Seat "${seat}" is already taken for match ${matchId}`);
+        if (existing) throw new ConflictError(`Seat '${seat}' is already taken for match ${matchId}`);
 
         const ticket = this.ticketRepository.create({
             match,
