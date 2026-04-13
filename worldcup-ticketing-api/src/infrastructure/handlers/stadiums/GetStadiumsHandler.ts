@@ -23,7 +23,6 @@ export default class GetStadiumsHandler {
         } else {
             data = await stadiumService.findAll();
         }
-        //ajouter des methodes supplémentaires si nécessaire pour capacity...
 
         const message = cityName ? `Stadiums filtered by city[name]: ${cityName}` : cityCountry ? `Stadiums filtered by city[country]: ${cityCountry}` : countryCode ? `Stadiums filtered by country[code]: ${countryCode}` : countryName ? `Stadiums filtered by country[name]: ${countryName}` : "All stadiums";
 

@@ -11,10 +11,10 @@ export class Stadium {
 
     @ManyToOne(() => City, { eager: true, nullable: false })
     @JoinColumn()
-    public city: City;
+    public city!: City;
 
     @Column()
-    public capacity: number;
+    public capacity!: number;
 
     public constructor(name: string, city: City, capacity: number) {
         if (capacity < 0) throw new Error("Capacity > 0");

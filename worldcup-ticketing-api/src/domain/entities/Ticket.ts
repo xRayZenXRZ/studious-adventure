@@ -37,6 +37,4 @@ export class Ticket {
     public toString(): string {
         return `Match ID : ${this.match.id} , Seat : ${this.seat} , customer : ${this.lastname} ${this.firstname} , email : ${this.email}`;
     }
-
-
 }
