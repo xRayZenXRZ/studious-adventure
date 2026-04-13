@@ -11,7 +11,7 @@ export default class GetCountryByCodeHandler {
     async handle(c: Context<{}, "/:code">) {
         const { code } = c.req.param();
         try {
-            const data = await countryService.findByCode(code.toLowerCase());
+            const data = await countryService.findByCode(code);
 
             return c.json({ "success": true, "message": `Country ${data.name}`, data }, 200);
         } catch (e) {

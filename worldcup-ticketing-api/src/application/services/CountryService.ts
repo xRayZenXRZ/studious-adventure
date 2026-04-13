@@ -50,13 +50,15 @@ export class CountryService {
             return countries;
         }
 
-        return this.countryRepository.find({
+        const countries = await this.countryRepository.find({
 
             order: {
                 name: "ASC"
             }
 
-        });
+        })
+
+        return countries;
     }
 
     async findByCode(code: string): Promise<Country> {

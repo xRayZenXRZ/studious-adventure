@@ -35,16 +35,7 @@ export class MatchService {
 
         //Match Filtered By Stage
         if (stage) {
-
-            if (!(stage in MatchStage)) throw new ValidationError(`Invalid stage: "${stage}"`)
-
-            const matches = await this.matchRepository.find({
-                where: {
-                    stage: ILike(stage as MatchStage)
-                },
-            });
-
-            return matches;
+            return this.findByStage(stage)
         }
 
         //verifier si hometTeam ≠ awaTeam pour ajouter une condition
@@ -102,7 +93,7 @@ export class MatchService {
 
     async findByStage(stage: string): Promise<Match[]> {
 
-        if (!(stage in MatchStage)) throw new ValidationError(`Invalid stage: "${stage}"`)
+        if (!(stage in MatchStage)) throw new ValidationError(`Invalid stage: "${stage.toLowerCase()}"`)
 
         const Matches = await this.matchRepository.find({
             where: {
@@ -115,7 +106,7 @@ export class MatchService {
 
     async findByStatus(status: string): Promise<Match[]> {
 
-        if (!(status in MatchStatus)) throw new ValidationError(`Invalid status: "${status}"`)
+        if (!(status in MatchStatus)) throw new ValidationError(`Invalid status: "${status.toLowerCase()}"`)
 
         const Matches = await this.matchRepository.find({
             where: {

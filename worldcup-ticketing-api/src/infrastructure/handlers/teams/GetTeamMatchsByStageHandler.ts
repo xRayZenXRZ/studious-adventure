@@ -23,7 +23,7 @@ export default class GetTeamMatchsByStageHandler {
 
             const team = await teamService.findByFifaCode(String(fifacode).toUpperCase());
 
-            const data = await matchService.findByTeamCodeAndStage(new FifaCode(String(fifacode).toUpperCase()), stage.toLowerCase())
+            const data = await matchService.findByTeamCodeAndStage(new FifaCode(String(fifacode).toUpperCase()), stage.toUpperCase())
 
             return c.json({ "success": true, "message": `Matchs for team ${team.code} at stage ${stage}`, "data": data });
         } catch (e) {

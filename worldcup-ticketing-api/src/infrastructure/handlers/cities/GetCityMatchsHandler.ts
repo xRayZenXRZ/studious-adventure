@@ -4,7 +4,6 @@ import { City } from "@domain/entities/City";
 import { Match } from "@domain/entities/Match";
 import { NotFoundError } from "@domain/errors/NotFoundError";
 import { AppDataSource } from "@infrastructure/database/AppDataSource";
-import { Matchs } from "@infrastructure/mock/matchs";
 import { Context } from "hono";
 import { HTTPException } from "hono/http-exception";
 
@@ -16,16 +15,15 @@ export default class GetCityMatchsHandler {
         const { name } = c.req.param();
         try {
 
-            const city = await cityService.findByName(name.toLowerCase());
+            const city = await cityService.findByName(name);
 
-            const data = await matchService.findByCityName(name.toLowerCase());
+            const data = await matchService.findByCityName(name);
 
-            return c.json({ "success": true, "message": `Matchs in ${city.name}`, "data": data });
+            return c.json({ "success": true, "message": `Matchs in ${name}`, "data": data });
 
         } catch (e) {
             if (e instanceof NotFoundError) throw new HTTPException(404, { message: e.message });
             throw e;
-            //if (!city) throw new HTTPException(404, { "message": `City "${name}" does not exist` });
         }
     }
 }

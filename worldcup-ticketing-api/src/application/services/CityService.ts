@@ -95,6 +95,12 @@ export class CityService {
 
             relations: {
                 country: true
+            },
+
+            order: {
+                country: {
+                    code: "ASC"
+                }
             }
 
         });

@@ -12,9 +12,9 @@ export default class GetCityByNameHandler {
         const { name } = c.req.param();
         try {
 
-            const data = await cityService.findByName(name.toLowerCase());
+            const data = await cityService.findByName(name);
 
-            return c.json({ "success": true, "message": `City ${data.name}`, data }, 200);
+            return c.json({ "success": true, "message": `City ${name}`, data }, 200);
         } catch (e) {
             if (e instanceof NotFoundError) throw new HTTPException(404, { message: e.message });
             throw e;

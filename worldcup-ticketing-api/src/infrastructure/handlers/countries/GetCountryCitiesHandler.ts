@@ -15,7 +15,7 @@ export default class GetCountryCitiesHandler {
         const { code } = c.req.param();
         try {
 
-            const country = await countryService.findByCode(code.toLowerCase());
+            const country = await countryService.findByCode(code);
 
             const data = await cityService.findAll({ country: country.code });
 

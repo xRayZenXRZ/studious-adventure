@@ -12,9 +12,9 @@ export default class GetStadiumByNameHandler {
         const { name } = c.req.param();
         try {
 
-            const data = await stadiumService.findByName(name.toLowerCase());
+            const data = await stadiumService.findByName(name);
 
-            return c.json({ "success": true, "message": `Stadium ${data.name}`, data }, 200)
+            return c.json({ "success": true, "message": `Stadium ${name}`, data }, 200)
         } catch (e) {
             if (e instanceof NotFoundError) throw new HTTPException(404, { message: e.message })
             throw e;

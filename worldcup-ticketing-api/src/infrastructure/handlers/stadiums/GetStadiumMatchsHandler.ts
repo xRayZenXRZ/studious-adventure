@@ -16,11 +16,11 @@ export default class GetStadiumsMatchsHandler {
         const { name } = c.req.param();
         try {
 
-            const stadium = await stadiumService.findByName(name.toLowerCase());
+            const stadium = await stadiumService.findByName(name);
 
-            const data = await matchService.findByStadiumName(name.toLowerCase());
+            const data = await matchService.findByStadiumName(name);
 
-            return c.json({ "success": true, "message": `Matchs at ${stadium.name}`, "data": data });
+            return c.json({ "success": true, "message": `Matchs at ${name}`, "data": data });
 
         } catch (e) {
             if (e instanceof NotFoundError) throw new HTTPException(404, { message: e.message });
