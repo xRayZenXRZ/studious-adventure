@@ -23,21 +23,3 @@ export default class GetCountriesHandler {
         }
     }
 }
-
-
-
-/*
-export default class GetCountriesHandler {
-    async handle(c: Context) {
-        const nameParam = c.req.query("name");
-
-        let countries = Countries;
-
-        if (nameParam) { countries = countries.filter(Country => Country.name.toLowerCase().includes(nameParam.toLowerCase())); }
-
-        const message = nameParam ? `Countries filtered by name: ${nameParam}` : 'All countries';
-
-        return c.json({ "success": true, "message": message, "data": countries });
-    }
-}
-*/

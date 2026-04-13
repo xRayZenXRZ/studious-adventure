@@ -21,21 +21,3 @@ export default class GetCityByNameHandler {
         }
     }
 }
-
-/*
-export default class GetCityByNameHandler {
-    async handle(c: Context) {
-        const nameParam = c.req.param("name");
-
-        if (!nameParam) throw new HTTPException(400, { "message": "name is vide" });
-
-        let cities = Cities
-
-        const city = cities.find(city => city.name.toLowerCase().includes(nameParam.toLowerCase()));
-
-        if (!city) throw new HTTPException(404, { "message": `City "${nameParam}" does not exist` });
-
-        return c.json({ "success": true, "message": `City ${nameParam}`, "data": city });
-    }
-}
-*/

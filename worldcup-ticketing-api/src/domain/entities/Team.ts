@@ -27,21 +27,3 @@ export class Team {
         return `${this.name} (${this.code.toString()})`;
     }
 }
-
-/*
-import { FifaCode } from "./FifaCode";
-
-export class Team {
-    public constructor(public name: string, public code: FifaCode) {
-
-    }
-
-    public equals(other: Team): boolean {
-        return this.code.equals(other.code);
-    }
-
-    public toString(): string {
-        return `${this.name} (${this.code.toString()})`;
-    }
-}
-*/

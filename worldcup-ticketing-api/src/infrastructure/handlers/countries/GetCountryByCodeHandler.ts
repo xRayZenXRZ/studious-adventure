@@ -20,19 +20,3 @@ export default class GetCountryByCodeHandler {
         }
     }
 }
-
-
-/*
-//Fonctionnalité bonus TD3.17
-export default class GetCountryByCodeHandler {
-    async handle(c: Context) {
-        const codeParam = c.req.param("code");
-
-        const country = Countries.find(country => country.code === codeParam.toLowerCase());
-
-        if (!country) throw new HTTPException(404, { "message": `Country "${codeParam}" does not exist` });
-
-        return c.json({ "success": true, "message": `Country ${country.name}`, "data": country });
-    }
-}
-*/

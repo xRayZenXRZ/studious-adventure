@@ -22,24 +22,3 @@ export default class GetMatchsByStageHandler {
         }
     }
 }
-
-
-/*
-export default class GetMatchsByStageHandler {
-    async handle(c: Context) {
-        const stageParam = c.req.param("stage");
-
-        if (!stageParam) throw new HTTPException(400, { "message": "Stage parameter is required" });
-
-        const stageKey = stageParam.toUpperCase() as keyof typeof MatchStage;
-
-        if (!Object.values(MatchStage).includes(MatchStage[stageKey])) throw new HTTPException(400, { "message": `Invalid stage: "${stageParam}"` });
-
-        const stageValue = MatchStage[stageKey];
-
-        const matchsByStage = Matchs.filter(matchs => matchs.stage === stageValue);
-
-        return c.json({ "success": true, "message": `Matchs at stage ${stageParam}`, "data": matchsByStage });
-    }
-}
-    */

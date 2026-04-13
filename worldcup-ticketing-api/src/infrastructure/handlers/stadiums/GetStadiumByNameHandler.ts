@@ -21,20 +21,3 @@ export default class GetStadiumByNameHandler {
         }
     }
 }
-
-
-/*
-export default class GetStadiumByNameHandler {
-    async handle(c: Context) {
-        const nameParam = c.req.param("name");
-
-        if (!nameParam) throw new HTTPException(400, { "message": " name is required" });
-
-        const stadium = Stadiums.find((stadium) => stadium.name.toLowerCase() === nameParam.toLowerCase());
-
-        if (!stadium) throw new HTTPException(404, { "message": `Stadium "${nameParam}" does not exist` });
-
-        return c.json({ "success": true, "message": `Stadium ${nameParam}`, "data": stadium }, 200);
-    }
-}
-*/

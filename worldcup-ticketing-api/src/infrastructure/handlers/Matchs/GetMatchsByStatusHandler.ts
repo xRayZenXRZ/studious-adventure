@@ -21,22 +21,3 @@ export default class GetMatchsByStatusHandler {
         }
     }
 }
-/*
-export default class GetMatchsByStatusHandler {
-    async handle(c: Context) {
-        const statusParam = c.req.param("status");
-
-        if (!statusParam) throw new HTTPException(400, { "message": "Status paramater is required" });
-
-        const statusKey = statusParam.toUpperCase() as keyof typeof MatchStatus;
-
-        if (!Object.values(MatchStatus).includes(MatchStatus[statusKey])) throw new HTTPException(400, { "message": `Invalid status: "${statusParam}"` });
-
-        const statusValue = MatchStatus[statusKey];
-
-        const matchsByStatus = Matchs.filter(matchs => matchs.status === statusValue);
-
-        return c.json({ "success": true, "message": `Matchs with status ${statusParam}`, "data": matchsByStatus });
-    }
-}
-*/

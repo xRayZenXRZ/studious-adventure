@@ -24,22 +24,3 @@ export default class GetCityByNameHandler {
         }
     }
 }
-
-
-
-
-/*
-export default class GetCityHandler {
-    async handle(c: Context) {
-        const nameParam = c.req.query("name");
-
-        let cities = Cities;
-
-        if (nameParam) cities = cities.filter(city => city.name.toLowerCase().includes(nameParam.toLowerCase()));
-
-        const message = nameParam ? `Cities filtered by name: ${nameParam}` : 'All cities';
-
-        return c.json({ "success": true, "message": message, "data": cities });
-    }
-}
-*/

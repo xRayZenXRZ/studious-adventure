@@ -40,20 +40,3 @@ export class Ticket {
 
 
 }
-
-
-/*import { Customer } from "./Customer";
-import { Match } from "./Match";
-
-export class Ticket {
-
-    public constructor(public id: number, public match: Match, public seat: string, public customer: Customer) {
-
-        if (id < 0) throw new Error(" id doit être > 0");
-
-        if (seat === undefined) throw new Error("seat cannot not be vide");
-
-    }
-
-}
-    */

@@ -24,30 +24,3 @@ export default class GetTeamsHandler {
         }
     }
 }
-
-/*
-export default class GetTeamsHandler {
-    async handle(c: Context) {
-        const sortParam = c.req.query("sort");
-        const nameParam = c.req.query("name");
-
-        if (sortParam !== undefined && sortParam !== "name" && sortParam !== "-name") throw new HTTPException(400, { "message": `Invalid sort value: ${sortParam}` });
-
-        let teams = Teams;
-
-        if (nameParam) {
-            teams = teams.filter(team => team.name.toLowerCase().includes(nameParam.toLowerCase()));
-        }
-
-        if (sortParam === "-name") {
-            teams.sort((a, b) => b.name.localeCompare(a.name));
-        } else if (sortParam === "name") {
-            teams.sort((a, b) => a.name.localeCompare(b.name));
-        }
-
-        const message = nameParam ? `Teams filtered by name: ${nameParam}` : "All teams";
-
-        return c.json({ "success": true, "message": message, "data": teams }, 200);
-    }
-}
-*/
