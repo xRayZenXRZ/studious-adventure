@@ -26,6 +26,10 @@ export class TeamService {
 
                 where: {
                     name: ILike(name)
+                },
+
+                order: {
+                    name: "ASC"
                 }
 
             })
@@ -70,6 +74,10 @@ export class TeamService {
                 code: ILike(code)
             },
 
+            order: {
+                code: "ASC"
+            }
+
         })
 
         if (!team) throw new NotFoundError(`FifaCode "${code}" does not exist`);
@@ -77,4 +85,25 @@ export class TeamService {
         return team;
     }
 
+    async sortByName(sort: string): Promise<Team[]> {
+
+        if (sort !== "name" && sort !== "-name") throw new ValidationError(`Invalid sort value: ${sort}`);
+
+        let teams = await this.teamRepository.find({})
+
+        if (sort === "-name") {
+            teams.sort().reverse()
+        } else {
+            teams.sort()
+        }
+        /*
+        if (sort === "-name") {
+            data = data.sort((a, b) => b.name.localeCompare(a.name));
+          } else {
+            // /teams or ?sort=name → ascending by default
+            data = data.sort((a, b) => a.name.localeCompare(b.name));
+        } 
+        */
+        return teams
+    }
 }
