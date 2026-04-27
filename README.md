@@ -1,61 +1,307 @@
-# studious-adventure
+# World Cup Ticketing API
 
-Projet de Technologie Web Avancée 2025-2026.
+API REST de réservation de billets pour la Coupe du Monde 2026.
 
-## Bienvenue
+## Objectif du projet
 
-What the project does ?
-> Création d'une **application web Back End** et son **API REST** pour la billetterie en ligne de la Coupe du Monde Football.
+Ce projet a pour objectif de proposer une API permettant de consulter des informations liées à la Coupe du Monde 2026 et de gérer des réservations de billets.
 
-Why the project is useful ?
-> Un projet de développement permettant d'acquiérir les bases d'un developpement web UX ainsi que son API REST.
+L’API permet notamment de manipuler les ressources suivantes :
 
-How users can get started with the project ?
-> Une documentation en PDF sera fourni : <sub> Join here link to documentation (pdf) </sub>
+- `match`
+- `team`
+- `country`
+- `city`
+- `stadium`
+- `reservation`
 
-Who maintains and contributes to the project ?
-> Une fois le project complete celle-ci ne serais plus maintenu. Les contributeurs à ce project son : <sub> Join names of all contributers </sub>
+---
 
-Remarque :
+## Stack technique
 
-- Structure Github inspirée de la [documentation github](https://github.com/skills/introduction-to-repository-management)
+- **Runtime** : Bun
+- **Langage** : TypeScript
+- **Framework HTTP** : Hono
+- **ORM** : TypeORM
+- **Validation** : Zod
+- **Base de données** : MariaDB
+- **Outils** : Docker, Adminer
 
-## Spécification fonctionnelles
+---
 
-### Utilisateur et Cas d'utilisation
+## Installation
 
-**Anonymes** :
-> création de compte client, consultation du calendrier des matchs
-(équipes, localisation, date et horaire), du prix des tickets, du nombre de places restantes…
+### 1. Cloner le dépôt
 
-**Clients authentifiés** :
->fonctionnalités identiques aux internautes anonymes + authentification, commande de tickets et consultation des tickets achetés.
+```bash
+git clone https://github.com/xRayZenXRZ/studious-adventure.git
+cd studious-adventure/worldcup-ticketing-api
+```
 
-**L'API ne s'adressera pas aux utilisateurs back office**
->(les données seront saisies manuellement dans la base de données ou via des scripts de génération de données).
+### 2. Installer les dépendances
 
-## Ressources et services exposés
+```bash
+bun install
+```
 
-*L'API REST* exposera plusieurs endpoints pour les ressources et services suivants :
+---
 
-- Match
-- Team
-- Country
-- City
-- Stadium
-- Reservation
-- Auth (Fonctionnalité non à faire)
+## Configuration
 
-## Securisation des endspoints
+Créer un fichier `.env` à partir de `.env.example`.
 
-La ressource **reservation** sera associée à des endpoints privés, nécessitant la communication d'un jeton d'authentification ou d'une clé d'API.
+Exemple :
 
-L'authentification et l'obtention du jeton s'effectueront via le service Auth.
+```env
+NODE_ENV=development
+HOST=localhost
+PORT=3000
+API_NAME=worldcup-ticketing-api
 
-## Base de données
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=worldcup
+DB_USER=root
+DB_PASSWORD=password
+```
 
-Dans le cadre du cours de Bases de données enseigné par M. Gilles Halin au semestre 3, nous avez modélisé une base de données relationnelles et intégré des données de test en lien avec le sujet. Ce travail servira de base pour ce projet (des adaptations seront faites).
+> Adapter les valeurs si nécessaire selon votre configuration Docker.
 
-## Specification Techniques
+---
 
-Voir fichier Text `requirement.txt`
+## Lancer la base de données
+
+Le projet utilise Docker pour démarrer MariaDB et Adminer.
+
+```bash
+docker compose up -d
+```
+
+### Services disponibles
+
+- **MariaDB**
+- **Adminer**
+
+### Accès Adminer
+
+Une fois les conteneurs démarrés, Adminer est accessible depuis le navigateur à l’adresse configurée dans le `docker-compose.yml`.
+
+Exemple :
+
+```txt
+http://localhost:8080
+```
+
+### Informations de connexion
+
+À adapter selon le `docker-compose.yml` :
+
+- **Système** : MariaDB
+- **Serveur** : `localhost` (nom du service Docker)
+- **Utilisateur** : `root`
+- **Mot de passe** : `password`
+- **Base de données** : `worldcup`
+
+---
+
+## Lancer l’application
+
+### Mode développement
+
+```bash
+bun run dev
+```
+
+L’API sera disponible sur :
+
+```txt
+http://localhost:3000
+```
+
+---
+
+## Seed de la base de données
+
+Pour injecter les données initiales :
+
+```bash
+bun run seed
+```
+
+Cette commande permet de préremplif la base avec des données de démonstration :
+
+- pays
+- villes
+- stades
+- équipes
+- matchs
+- réservations
+
+---
+
+## Structure du projet
+
+Exemple de structure générale :
+
+```txt
+worldcup-ticketing-api/
+├── src/
+├── .env.example
+├── docker-compose.yml
+├── package.json
+└── README.md
+```
+
+l’organisation interne du projet, on retrouve :
+
+- `routes/` : définition des endpoints
+- `handlers/` : gestion des requêtes HTTP
+- `services/` : logique métier
+- `entities/` : entités TypeORM
+- `database/` : configuration BDD et seed
+
+---
+
+## Endpoints principaux
+
+### Matchs
+
+- `GET /matches` : récupérer la liste des matchs
+- `GET /matches/:id` : récupérer le détail d’un match
+
+### Équipes
+
+- `GET /teams` : récupérer la liste des équipes
+- `GET /teams/:id` : récupérer le détail d’une équipe
+
+### Pays
+
+- `GET /countries` : récupérer la liste des pays
+
+### Villes
+
+- `GET /cities` : récupérer la liste des villes
+
+### Stades
+
+- `GET /stadiums` : récupérer la liste des stades
+
+### Réservations
+
+- `GET /matchs` : récupérer la liste des matchs
+- `GET /matchs/:id` : récupérer le détail d’une match à l'aide de son id
+- `POST /ticket` : créer un ticket
+
+---
+
+## Exemple de requête
+
+### Créer une réservation
+
+```http
+POST /tickets
+Content-Type: application/json
+```
+
+```json
+{
+  "matchId": 1,
+  "seat": "A12",
+  "customer": {
+    "firstname": "John",
+    "lastname": "Doe",
+    "email": "john@doe.com"
+  }
+}
+```
+
+### Exemple de réponse
+
+```json
+{
+  "message": "Reservation created successfully",
+  "data": {
+    "id": 1,
+    "matchId": 1,
+    "quantity": 2,
+    "totalPrice": 200
+  }
+}
+```
+
+---
+
+## Gestion des erreurs
+
+L’API doit retourner des statuts HTTP cohérents selon les cas :
+
+- `200 OK` : requête réussie
+- `201 Created` : ressource créée
+- `204 No Content` : suppression réussie
+- `400 Bad Request` : données invalides
+- `404 Not Found` : ressource inexistante
+- `409 Conflict` : conflit métier, par exemple plus assez de places
+- `500 Internal Server Error` : erreur interne du serveur
+
+Exemple d’erreur :
+
+```json
+{
+  "error": {
+    "code": "NOT_ENOUGH_SEATS",
+    "message": "Not enough seats available"
+  }
+}
+```
+
+---
+
+## Validation
+
+La validation des entrées est réalisée avec **Zod**.
+
+Elle permet notamment de contrôler :
+
+- les données envoyées dans le body
+- les paramètres d’URL
+- les champs obligatoires
+- les quantités de billets
+- les formats invalides
+
+---
+
+## Tests de l’API
+
+Le projet est testé à l’aide :
+
+- de **Bruno**
+- d’**Adminer** pour vérifier les données en base
+
+Si une collection Bruno est fournie, elle permet de tester rapidement :
+
+- la récupération des ressources
+- la création de réservations
+- les cas d’erreur
+- la suppression de réservations
+
+---
+
+## Axes d’amélioration possibles
+
+Plusieurs améliorations peuvent encore être apportées au projet :
+
+- renforcer la logique métier de réservation
+- mieux gérer les places restantes
+- uniformiser les réponses JSON
+- améliorer la gestion centralisée des erreurs
+- améliorer les validations Zod
+
+---
+
+## Auteur / Groupe
+
+- ALTANTUYA
+- Tsogt-Erdene
+- L2 MIASHS
+
+---
