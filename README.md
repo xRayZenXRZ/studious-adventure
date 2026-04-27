@@ -6,14 +6,14 @@ API REST de réservation de billets pour la Coupe du Monde 2026.
 
 Ce projet a pour objectif de proposer une API permettant de consulter des informations liées à la Coupe du Monde 2026 et de gérer des réservations de billets.
 
-L’API permet notamment de manipuler les ressources suivantes :
+L’API permet de manipuler les ressources suivantes :
 
 - `match`
 - `team`
 - `country`
 - `city`
 - `stadium`
-- `reservation`
+- `tickets`
 
 ---
 
@@ -135,7 +135,7 @@ Cette commande permet de préremplif la base avec des données de démonstration
 - stades
 - équipes
 - matchs
-- réservations
+- tickets
 
 ---
 
@@ -186,11 +186,11 @@ l’organisation interne du projet, on retrouve :
 
 - `GET /stadiums` : récupérer la liste des stades
 
-### Réservations
+### Tickets
 
-- `GET /matchs` : récupérer la liste des matchs
-- `GET /matchs/:id` : récupérer le détail d’une match à l'aide de son id
-- `POST /ticket` : créer un ticket
+- `GET /tickets` : récupérer la liste des réservatio
+- `GET /tickets/:id` : récupérer le détail d’une réservation
+- `POST /tickets` : créer une réservation
 
 ---
 
@@ -219,12 +219,12 @@ Content-Type: application/json
 
 ```json
 {
-  "message": "Reservation created successfully",
-  "data": {
-    "id": 1,
-    "matchId": 1,
-    "quantity": 2,
-    "totalPrice": 200
+  "matchId": 1,
+  "seat": "A12",
+  "customer": {
+    "firstname": "John",
+    "lastname": "Doe",
+    "email": "john@doe.com"
   }
 }
 ```
@@ -246,12 +246,7 @@ L’API doit retourner des statuts HTTP cohérents selon les cas :
 Exemple d’erreur :
 
 ```json
-{
-  "error": {
-    "code": "NOT_ENOUGH_SEATS",
-    "message": "Not enough seats available"
-  }
-}
+{"error"}
 ```
 
 ---
@@ -260,7 +255,7 @@ Exemple d’erreur :
 
 La validation des entrées est réalisée avec **Zod**.
 
-Elle permet notamment de contrôler :
+Elle permet de contrôler :
 
 - les données envoyées dans le body
 - les paramètres d’URL
@@ -276,13 +271,6 @@ Le projet est testé à l’aide :
 
 - de **Bruno**
 - d’**Adminer** pour vérifier les données en base
-
-Si une collection Bruno est fournie, elle permet de tester rapidement :
-
-- la récupération des ressources
-- la création de réservations
-- les cas d’erreur
-- la suppression de réservations
 
 ---
 
