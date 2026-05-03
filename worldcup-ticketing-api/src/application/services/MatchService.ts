@@ -38,6 +38,8 @@ export class MatchService {
             return this.findByStage(stage)
         }
 
+        //verifier si hometTeam ≠ awaTeam pour ajouter une condition
+
         if (homeTeam) {
             const TeamCode = new FifaCode(homeTeam)
 
