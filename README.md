@@ -281,7 +281,6 @@ l’organisation interne du projet, on retrouve :
 
 ```http
 POST /tickets
-Content-Type: application/json
 ```
 
 ```json
