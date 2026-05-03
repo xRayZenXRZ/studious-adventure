@@ -146,6 +146,87 @@ Exemple de structure générale :
 ```txt
 worldcup-ticketing-api/
 ├── src/
+│   ├── Application/
+│   │   └── Services/      
+│   │       ├── CityService.ts
+│   │       ├── CountryService.ts
+│   │       ├── MatchService.ts
+│   │       ├── StadiumService.ts
+│   │       ├── TeamService.ts
+│   │       └── TicketService.ts
+│   │
+│   ├── Domain/
+│   │   ├── Entities/             
+│   │   │   ├── City.ts
+│   │   │   ├── Country.ts
+│   │   │   ├── Match.ts
+│   │   │   ├── Stadium.ts
+│   │   │   ├── Team.ts
+│   │   │   └── Ticket.ts
+│   │   ├── Enums/         
+│   │   │   ├── MatchStatus.ts
+│   │   │   └── MatchStage.ts
+│   │   ├── Errors/           
+│   │   │   ├── ConflictError.ts
+│   │   │   ├── NotFoundError.ts
+│   │   │   └── ValidationError.ts
+│   │   └── ValueObjects/       
+│   │       └── FifaCode.ts
+│   │
+│   ├── Infrastructure/
+│   │   ├── App.ts               
+│   │   ├── Database/
+│   │   │   ├── AppDataSource.ts 
+│   │   │   └── seed.ts 
+│   │   ├── Handlers/ 
+│   │   │   ├── Cities/
+│   │   │   │   ├── GetCitiesHandler.ts
+│   │   │   │   ├── GetCityByNameHandler.ts
+│   │   │   │   └── GetCityMatchsHandler.ts
+│   │   │   ├── Countries/
+│   │   │   │   ├── GetCountriesHandler.ts
+│   │   │   │   ├── GetCountryByCodeHandler.ts
+│   │   │   │   └── GetCountryCitiesHandler.ts
+│   │   │   ├── Home/
+│   │   │   │   ├── GetHealthHandler.ts
+│   │   │   │   └── GetHomeHandler.ts
+│   │   │   ├── Matchs/
+│   │   │   │   ├── GetMatchByIdHandler.ts
+│   │   │   │   ├── GetMatchsByStageHandler.ts
+│   │   │   │   ├── GetMatchsByStatusHandler.ts
+│   │   │   │   └── GetMatchsHandler.ts
+│   │   │   ├── Stadiums/
+│   │   │   │   ├── GetStadiumByNameHandler.ts
+│   │   │   │   ├── GetStadiumMatchsHandler.ts
+│   │   │   │   └── GetStadiumsHandler.ts
+│   │   │   ├── Teams/
+│   │   │   │   ├── GetTeamByFifaCodeHandler.ts
+│   │   │   │   ├── GetTeamMatchsByStageHandler.ts
+│   │   │   │   ├── GetTeamMatchsHandler.ts
+│   │   │   │   └── GetTeamsHandler.ts
+│   │   │   └── Tickets/
+│   │   │       ├── CreateTicketHandler.ts
+│   │   │       ├── CreateTicketSchema.ts
+│   │   │       ├── GetTicketsByEmailHandler.ts
+│   │   │       └── GetTicketsSoldSeatsByMatch.ts
+│   │   ├── Mock/                
+│   │   │   ├── Cities.ts
+│   │   │   ├── Countries.ts
+│   │   │   ├── Matchs.ts
+│   │   │   ├── Stadiums.ts
+│   │   │   ├── Team.ts
+│   │   │   └── Tickets.ts
+│   │   └── Routes/              
+│   │       ├── Cities.ts
+│   │       ├── Countries.ts
+│   │       ├── Home.ts
+│   │       ├── Matchs.ts
+│   │       ├── Stadiums.ts
+│   │       ├── Team.ts
+│   │       └── Tickets.ts
+│   │
+│   └── Index.ts                 
+│
 ├── .env.example
 ├── docker-compose.yml
 ├── package.json
@@ -219,12 +300,54 @@ Content-Type: application/json
 
 ```json
 {
-  "matchId": 1,
-  "seat": "A12",
-  "customer": {
+  "success": true,
+  "message": "Ticket created",
+  "data": {
+    "seat": "A12",
     "firstname": "John",
     "lastname": "Doe",
-    "email": "john@doe.com"
+    "email": "john@doe.com",
+    "match": {
+      "homeTeam": {
+        "id": 1,
+        "name": "Canada",
+        "code": {
+          "value": "CAN"
+        }
+      },
+      "awayTeam": {
+        "id": 6,
+        "name": "Égypte",
+        "code": {
+          "value": "EGY"
+        }
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "homeScoreExtraTime": null,
+      "awayScoreExtraTime": null,
+      "homeScoreShootOut": null,
+      "awayScoreShootOut": null,
+      "stadium": {
+        "name": "Mercedes-Benz Stadium",
+        "city": {
+          "id": 1,
+          "name": "Atlanta",
+          "country": {
+            "id": 1,
+            "name": "USA",
+            "code": "us"
+          }
+        },
+        "capacity": 67382,
+        "id": 1
+      },
+      "status": "scheduled",
+      "stage": "group",
+      "date": "2026-06-11T00:00:00.000Z",
+      "id": 1
+    },
+    "id": 1
   }
 }
 ```
@@ -246,7 +369,10 @@ L’API doit retourner des statuts HTTP cohérents selon les cas :
 Exemple d’erreur :
 
 ```json
-{"error"}
+{
+  "success": false,
+  "error": "Seat 'A12' is already taken for match 1"
+}
 ```
 
 ---
@@ -258,9 +384,7 @@ La validation des entrées est réalisée avec **Zod**.
 Elle permet de contrôler :
 
 - les données envoyées dans le body
-- les paramètres d’URL
 - les champs obligatoires
-- les quantités de billets
 - les formats invalides
 
 ---
@@ -283,6 +407,7 @@ Plusieurs améliorations peuvent encore être apportées au projet :
 - uniformiser les réponses JSON
 - améliorer la gestion centralisée des erreurs
 - améliorer les validations Zod
+- implemntations auth
 
 ---
 
