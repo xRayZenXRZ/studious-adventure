@@ -24,7 +24,6 @@ export class TicketService {
 
     async order(matchId: number, seat: string, customer: { firstname: string, lastname: string, email: string }): Promise<Ticket> {
 
-        // à revoir 
         const match = await this.matchRepository.findOne({
             where: {
                 id: matchId
